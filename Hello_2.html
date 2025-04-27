@@ -353,15 +353,347 @@ display: none;
 </div>
 
 
+<pre class="r"><code>top &lt;- read_csv(&quot;imdb.csv&quot;)</code></pre>
+<pre><code>## Rows: 4500 Columns: 8
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (4): title, genres, director, cast
+## dbl (4): year, minutes, rating, votes
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>head(top)</code></pre>
+<pre><code>## # A tibble: 6 × 8
+##   title                         year minutes genres rating  votes director cast 
+##   &lt;chr&gt;                        &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;
+## 1 Star Wars: Episode V - The …  1980     124 Actio…    8.7 1.43e6 Irvin K… Mark…
+## 2 The Shining                   1980     146 Drama…    8.4 1.16e6 Stanley… Jack…
+## 3 Raging Bull                   1980     129 Biogr…    8.1 3.94e5 Martin … Robe…
+## 4 Airplane!                     1980      88 Comedy    7.7 2.72e5 Jim Abr… Robe…
+## 5 The Elephant Man              1980     124 Biogr…    8.2 2.71e5 David L… Anth…
+## 6 The Blues Brothers            1980     133 Adven…    7.9 2.21e5 John La… John…</code></pre>
+<pre class="r"><code>modern &lt;- top |&gt;
+  filter(year &gt;= 2000)
+head(modern)</code></pre>
+<pre><code>## # A tibble: 6 × 8
+##   title                year minutes genres          rating  votes director cast 
+##   &lt;chr&gt;               &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;
+## 1 Gladiator            2000     155 Action,Adventu…    8.5 1.75e6 Ridley … Russ…
+## 2 Memento              2000     113 Mystery,Thrill…    8.4 1.37e6 Christo… Guy …
+## 3 Snatch               2000     102 Comedy,Crime       8.2 9.42e5 Guy Rit… Jaso…
+## 4 Requiem for a Dream  2000     102 Drama              8.3 9.34e5 Darren … Elle…
+## 5 American Psycho      2000     102 Crime,Drama,Ho…    7.6 7.73e5 Mary Ha… Chri…
+## 6 X-Men                2000     104 Action,Adventu…    7.3 6.71e5 Bryan S… Patr…</code></pre>
 <pre class="r"><code>set.seed(65)
 xs &lt;- sample(1:250, 25)
 xs</code></pre>
 <pre><code>##  [1] 158  35 175 238  24  95   2 214  92 169 209 189 191 179  31  85 243 181 213
 ## [20]   8  70   6 195  46  78</code></pre>
-<pre class="r"><code>me &lt;- median(xs)
-me</code></pre>
-<pre><code>## [1] 158</code></pre>
+<pre class="r"><code>me &lt;- median(xs)</code></pre>
 <p>Median is 158.</p>
+<pre class="r"><code>modern[xs, ] |&gt;
+  knitr::kable()</code></pre>
+<table>
+<colgroup>
+<col width="15%" />
+<col width="2%" />
+<col width="4%" />
+<col width="12%" />
+<col width="3%" />
+<col width="4%" />
+<col width="9%" />
+<col width="47%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">title</th>
+<th align="right">year</th>
+<th align="right">minutes</th>
+<th align="left">genres</th>
+<th align="right">rating</th>
+<th align="right">votes</th>
+<th align="left">director</th>
+<th align="left">cast</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Along Came a Spider</td>
+<td align="right">2001</td>
+<td align="right">104</td>
+<td align="left">Crime,Drama,Mystery</td>
+<td align="right">6.4</td>
+<td align="right">98894</td>
+<td align="left">Lee Tamahori</td>
+<td align="left">Morgan Freeman,Michael Wincott,Monica Potter,Dylan
+Baker,Mika Boorem</td>
+</tr>
+<tr class="even">
+<td align="left">Road Trip</td>
+<td align="right">2000</td>
+<td align="right">93</td>
+<td align="left">Comedy</td>
+<td align="right">6.5</td>
+<td align="right">182916</td>
+<td align="left">Todd Phillips</td>
+<td align="left">Breckin Meyer,Seann William Scott,Amy Smart,Paulo
+Costanzo,DJ Qualls</td>
+</tr>
+<tr class="odd">
+<td align="left">The Devil’s Backbone</td>
+<td align="right">2001</td>
+<td align="right">106</td>
+<td align="left">Drama,Horror,Thriller</td>
+<td align="right">7.4</td>
+<td align="right">72943</td>
+<td align="left">Guillermo del Toro</td>
+<td align="left">Marisa Paredes,Eduardo Noriega,Federico Luppi,Fernando
+Tielve,Íñigo Garcés</td>
+</tr>
+<tr class="even">
+<td align="left">We Were Soldiers</td>
+<td align="right">2002</td>
+<td align="right">138</td>
+<td align="left">Action,Drama,History</td>
+<td align="right">7.2</td>
+<td align="right">155214</td>
+<td align="left">Randall Wallace</td>
+<td align="left">Mel Gibson,Madeleine Stowe,Greg Kinnear,Sam
+Elliott,Chris Klein</td>
+</tr>
+<tr class="odd">
+<td align="left">Miss Congeniality</td>
+<td align="right">2000</td>
+<td align="right">109</td>
+<td align="left">Action,Comedy,Crime</td>
+<td align="right">6.3</td>
+<td align="right">239140</td>
+<td align="left">Donald Petrie</td>
+<td align="left">Sandra Bullock,Michael Caine,Benjamin Bratt,Candice
+Bergen,William Shatner</td>
+</tr>
+<tr class="even">
+<td align="left">Book of Shadows: Blair Witch 2</td>
+<td align="right">2000</td>
+<td align="right">90</td>
+<td align="left">Adventure,Fantasy,Horror</td>
+<td align="right">4.0</td>
+<td align="right">41013</td>
+<td align="left">Joe Berlinger</td>
+<td align="left">Jeffrey Donovan,Stephen Barker Turner,Erica
+Leerhsen,Kurt Loder,Chuck Scarborough</td>
+</tr>
+<tr class="odd">
+<td align="left">Memento</td>
+<td align="right">2000</td>
+<td align="right">113</td>
+<td align="left">Mystery,Thriller</td>
+<td align="right">8.4</td>
+<td align="right">1372193</td>
+<td align="left">Christopher Nolan</td>
+<td align="left">Guy Pearce,Carrie-Anne Moss,Joe Pantoliano,Mark Boone
+Junior,Russ Fega</td>
+</tr>
+<tr class="even">
+<td align="left">Signs</td>
+<td align="right">2002</td>
+<td align="right">106</td>
+<td align="left">Drama,Mystery,Sci-Fi</td>
+<td align="right">6.8</td>
+<td align="right">400029</td>
+<td align="left">M. Night Shyamalan</td>
+<td align="left">Mel Gibson,Joaquin Phoenix,Rory Culkin,Abigail
+Breslin,Cherry Jones</td>
+</tr>
+<tr class="odd">
+<td align="left">Reindeer Games</td>
+<td align="right">2000</td>
+<td align="right">104</td>
+<td align="left">Action,Crime,Thriller</td>
+<td align="right">5.8</td>
+<td align="right">43454</td>
+<td align="left">John Frankenheimer</td>
+<td align="left">Ben Affleck,Gary Sinise,Charlize Theron,James
+Frain,Dana Stubblefield</td>
+</tr>
+<tr class="even">
+<td align="left">The Last Castle</td>
+<td align="right">2001</td>
+<td align="right">131</td>
+<td align="left">Action,Drama,Thriller</td>
+<td align="right">6.9</td>
+<td align="right">87300</td>
+<td align="left">Rod Lurie</td>
+<td align="left">Robert Redford,James Gandolfini,Mark Ruffalo,Steve
+Burton,Delroy Lindo</td>
+</tr>
+<tr class="odd">
+<td align="left">The Bourne Identity</td>
+<td align="right">2002</td>
+<td align="right">119</td>
+<td align="left">Action,Mystery,Thriller</td>
+<td align="right">7.8</td>
+<td align="right">592792</td>
+<td align="left">Doug Liman</td>
+<td align="left">Franka Potente,Matt Damon,Chris Cooper,Clive Owen,Brian
+Cox</td>
+</tr>
+<tr class="even">
+<td align="left">America’s Sweethearts</td>
+<td align="right">2001</td>
+<td align="right">102</td>
+<td align="left">Comedy,Romance</td>
+<td align="right">5.7</td>
+<td align="right">61714</td>
+<td align="left">Joe Roth</td>
+<td align="left">Julia Roberts,John Cusack,Billy Crystal,Catherine
+Zeta-Jones,Hank Azaria</td>
+</tr>
+<tr class="odd">
+<td align="left">Heartbreakers</td>
+<td align="right">2001</td>
+<td align="right">123</td>
+<td align="left">Comedy,Crime,Romance</td>
+<td align="right">6.3</td>
+<td align="right">60041</td>
+<td align="left">David Mirkin</td>
+<td align="left">Sigourney Weaver,Sigourney Weaver,Sigourney
+Weaver,Jennifer Love Hewitt,Jennifer Love Hewitt</td>
+</tr>
+<tr class="even">
+<td align="left">Kiss of the Dragon</td>
+<td align="right">2001</td>
+<td align="right">98</td>
+<td align="left">Action,Crime,Thriller</td>
+<td align="right">6.6</td>
+<td align="right">67995</td>
+<td align="left">Chris Nahon</td>
+<td align="left">Jet Li,Bridget Fonda,Tchéky Karyo,Ric Young,Burt
+Kwouk</td>
+</tr>
+<tr class="odd">
+<td align="left">Charlie’s Angels</td>
+<td align="right">2000</td>
+<td align="right">98</td>
+<td align="left">Action,Adventure,Comedy</td>
+<td align="right">5.6</td>
+<td align="right">201515</td>
+<td align="left">McG</td>
+<td align="left">Cameron Diaz,Drew Barrymore,Lucy Liu,Bill Murray,Sam
+Rockwell</td>
+</tr>
+<tr class="even">
+<td align="left">Nutty Professor II: The Klumps</td>
+<td align="right">2000</td>
+<td align="right">106</td>
+<td align="left">Comedy,Romance,Sci-Fi</td>
+<td align="right">4.5</td>
+<td align="right">54472</td>
+<td align="left">Peter Segal</td>
+<td align="left">Eddie Murphy,Eddie Murphy,Eddie Murphy,Janet
+Jackson,Larry Miller</td>
+</tr>
+<tr class="odd">
+<td align="left">The Scorpion King</td>
+<td align="right">2002</td>
+<td align="right">92</td>
+<td align="left">Action,Adventure,Fantasy</td>
+<td align="right">5.5</td>
+<td align="right">148625</td>
+<td align="left">Chuck Russell</td>
+<td align="left">Dwayne Johnson,Steven Brand,Michael Clarke Duncan,Kelly
+Hu,Bernard Hill</td>
+</tr>
+<tr class="even">
+<td align="left">The Animal</td>
+<td align="right">2001</td>
+<td align="right">84</td>
+<td align="left">Comedy,Sci-Fi</td>
+<td align="right">4.8</td>
+<td align="right">65515</td>
+<td align="left">Luke Greenfield</td>
+<td align="left">Rob Schneider,Colleen Haskell,John C. McGinley,Edward
+Asner,Michael Caton</td>
+</tr>
+<tr class="odd">
+<td align="left">Men in Black II</td>
+<td align="right">2002</td>
+<td align="right">88</td>
+<td align="left">Action,Adventure,Comedy</td>
+<td align="right">6.2</td>
+<td align="right">417276</td>
+<td align="left">Barry Sonnenfeld</td>
+<td align="left">Tommy Lee Jones,Will Smith,Rip Torn,Lara Flynn
+Boyle,Johnny Knoxville</td>
+</tr>
+<tr class="even">
+<td align="left">Unbreakable</td>
+<td align="right">2000</td>
+<td align="right">106</td>
+<td align="left">Drama,Mystery,Sci-Fi</td>
+<td align="right">7.3</td>
+<td align="right">455272</td>
+<td align="left">M. Night Shyamalan</td>
+<td align="left">Bruce Willis,Samuel L. Jackson,Robin Wright,Spencer
+Treat Clark,Charlayne Woodard</td>
+</tr>
+<tr class="odd">
+<td align="left">Best in Show</td>
+<td align="right">2000</td>
+<td align="right">90</td>
+<td align="left">Comedy</td>
+<td align="right">7.5</td>
+<td align="right">69233</td>
+<td align="left">Christopher Guest</td>
+<td align="left">Fred Willard,Eugene Levy,Catherine O’Hara,Jennifer
+Coolidge,Jay Brazeau</td>
+</tr>
+<tr class="even">
+<td align="left">X-Men</td>
+<td align="right">2000</td>
+<td align="right">104</td>
+<td align="left">Action,Adventure,Sci-Fi</td>
+<td align="right">7.3</td>
+<td align="right">670742</td>
+<td align="left">Bryan Singer</td>
+<td align="left">Patrick Stewart,Hugh Jackman,Hugh Jackman,Ian
+McKellen,Famke Janssen</td>
+</tr>
+<tr class="odd">
+<td align="left">Don’t Say a Word</td>
+<td align="right">2001</td>
+<td align="right">113</td>
+<td align="left">Drama,Mystery,Thriller</td>
+<td align="right">6.3</td>
+<td align="right">58654</td>
+<td align="left">Gary Fleder</td>
+<td align="left">Michael Douglas,Sean Bean,Brittany Murphy,Skye McCole
+Bartusiak,Famke Janssen</td>
+</tr>
+<tr class="even">
+<td align="left">Pay It Forward</td>
+<td align="right">2000</td>
+<td align="right">123</td>
+<td align="left">Drama</td>
+<td align="right">7.2</td>
+<td align="right">126109</td>
+<td align="left">Mimi Leder</td>
+<td align="left">Kevin Spacey,Haley Joel Osment,Helen Hunt,Jay Mohr,Jim
+Caviezel</td>
+</tr>
+<tr class="odd">
+<td align="left">The Legend of Bagger Vance</td>
+<td align="right">2000</td>
+<td align="right">126</td>
+<td align="left">Drama,Sport</td>
+<td align="right">6.7</td>
+<td align="right">60611</td>
+<td align="left">Robert Redford</td>
+<td align="left">Will Smith,Matt Damon,Charlize Theron,Bruce McGill,Joel
+Gretsch</td>
+</tr>
+</tbody>
+</table>
 
 
 
