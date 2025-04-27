@@ -2,10 +2,24 @@
 title: "Hello_2"
 output: html_document
 ---
-
 ```{r setup, include=FALSE}
+library(readr)
+library(dplyr)
+
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+```{r}
+top <- read_csv("imdb.csv")
+head(top)
+```
+
+```{r}
+modern <- top |>
+  filter(year >= 2000)
+head(modern)
+```
+
 ```{r}
 set.seed(65)
 xs <- sample(1:250, 25)
@@ -14,7 +28,11 @@ xs
 
 ```{r}
 me <- median(xs)
-me
 ```
+
 Median is `r me`.
 
+```{r}
+modern[xs, ] |>
+  knitr::kable()
+```
